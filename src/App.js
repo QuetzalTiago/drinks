@@ -3,18 +3,21 @@ import Header from "./components/Header";
 import Formulario from "./components/Formulario";
 
 import CategoriasProvider from "./context/CategoriasContext";
+import RecetasProvider from "./context/RecetasContext";
 
 function App() {
   return (
     <CategoriasProvider>
-      <Fragment>
-        <Header />
-        <div className="container mt-5">
-          <div className="row">
-            <Formulario />
+      <RecetasProvider>
+        <Fragment>
+          <Header />
+          <div className="container mt-5">
+            <div className="row">
+              <Formulario />
+            </div>
           </div>
-        </div>
-      </Fragment>
+        </Fragment>
+      </RecetasProvider>
     </CategoriasProvider>
   );
 }
