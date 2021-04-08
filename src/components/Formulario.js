@@ -3,7 +3,7 @@ import { CategoriasContext } from "../context/CategoriasContext";
 import { RecetasContext } from "../context/RecetasContext";
 
 const Formulario = () => {
-  const { categorias } = useContext(CategoriasContext);
+  const { categorias, ingredientes } = useContext(CategoriasContext);
   const { buscarRecetas, guardarConsultar } = useContext(RecetasContext);
   const [busqueda, guardarBusqueda] = useState({
     nombre: "",
@@ -12,7 +12,19 @@ const Formulario = () => {
 
   //funcion para leer los contenidos
   const obtenerDatosReceta = (e) => {
-    guardarBusqueda({ ...busqueda, [e.target.name]: e.target.value });
+    if (e.target.name === "nombre") {
+      guardarBusqueda({
+        ...busqueda,
+        [e.target.name]: e.target.value,
+        categoria: "",
+      });
+    } else if (e.target.name === "categoria") {
+      guardarBusqueda({
+        ...busqueda,
+        [e.target.name]: e.target.value,
+        nombre: "",
+      });
+    }
   };
 
   //funcion para enviar formulario
@@ -29,19 +41,30 @@ const Formulario = () => {
       </fieldset>
       <div className="row">
         <div className="col-md-4">
-          <input
+          <select
             name="nombre"
+            id=""
+            value={busqueda.nombre}
             className="form-control"
-            type="text"
             onChange={obtenerDatosReceta}
-            placeholder="Buscar por ingrediente"
-          ></input>
+          >
+            <option value="">--Selecciona Ingrediente--</option>
+            {ingredientes.map((ingrediente) => (
+              <option
+                key={ingrediente.strIngredient1}
+                value={ingrediente.strIngredient1}
+              >
+                {ingrediente.strIngredient1}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="col-md-4">
           <select
             name="categoria"
             id=""
             className="form-control"
+            value={busqueda.categoria}
             onChange={obtenerDatosReceta}
           >
             <option value="">--Selecciona Categoría--</option>

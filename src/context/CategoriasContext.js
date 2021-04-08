@@ -7,6 +7,7 @@ export const CategoriasContext = createContext();
 const CategoriasProvider = (props) => {
   //crear state del context
   const [categorias, guardarCategorias] = useState([]);
+  const [ingredientes, guardarIngredientes] = useState([]);
 
   //api call
   useEffect(() => {
@@ -15,11 +16,17 @@ const CategoriasProvider = (props) => {
       const categorias = await axios.get(url);
       guardarCategorias(categorias.data.drinks);
     };
+    const obtenerIngredientes = async () => {
+      const url = `https://thecocktaildb.com/api/json/v1/1/list.php?i=list`;
+      const ingredientes = await axios.get(url);
+      guardarIngredientes(ingredientes.data.drinks);
+    };
+    obtenerIngredientes();
     obtenerCategorias();
   }, []);
 
   return (
-    <CategoriasContext.Provider value={{ categorias }}>
+    <CategoriasContext.Provider value={{ categorias, ingredientes }}>
       {props.children}
     </CategoriasContext.Provider>
   );

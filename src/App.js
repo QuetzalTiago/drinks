@@ -5,20 +5,23 @@ import Formulario from "./components/Formulario";
 
 import CategoriasProvider from "./context/CategoriasContext";
 import RecetasProvider from "./context/RecetasContext";
+import ModalProvider from "./context/ModalContext";
 
 function App() {
   return (
     <CategoriasProvider>
       <RecetasProvider>
-        <Fragment>
-          <Header />
-          <div className="container mt-5">
-            <div className="row">
-              <Formulario />
+        <ModalProvider>
+          <Fragment>
+            <Header />
+            <div className="container mt-5">
+              <div className="row">
+                <Formulario />
+              </div>
             </div>
-          </div>
-          <ListaRecetas />
-        </Fragment>
+            <ListaRecetas />
+          </Fragment>
+        </ModalProvider>
       </RecetasProvider>
     </CategoriasProvider>
   );
