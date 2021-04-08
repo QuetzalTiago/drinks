@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { CategoriasContext } from "../context/CategoriasContext";
+
 const Formulario = () => {
+  const { categorias } = useContext(CategoriasContext);
+
   return (
     <form className="col-md-12">
       <fieldset>
@@ -17,6 +21,11 @@ const Formulario = () => {
         <div className="col-md-4">
           <select name="categoria" id="" className="form-control">
             <option value="">--Selecciona Categoría--</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.strCategory} value={categoria.strCategory}>
+                {categoria.strCategory}
+              </option>
+            ))}
           </select>
         </div>
         <div className="col-md-4">
